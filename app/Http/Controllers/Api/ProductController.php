@@ -12,7 +12,8 @@ class ProductController extends Controller
         $products = Product::with(['categories' => function ($query) {
             $query->select('id', 'name');
         }])->get();
-        // dd($products);
+
+        // return  response()->json($products);
         return $products;
     }
 
