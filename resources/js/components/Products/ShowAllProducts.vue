@@ -1,8 +1,7 @@
 <template>
   <div>
-  
-      <h2 class="m-3">Products</h2>
- 
+    <h2 class="m-3">Products</h2>
+
     <div
       class="container-fluid row"
       style="
@@ -43,15 +42,6 @@
                   +
                 </button>
 
-                <!-- <a href="#"
-                style="
-                  float: right;
-                  border: 2px solid #d38312;
-                  font-size: 20px;
-                  line-height: 12px;
-                  padding-bottom: 3px;
-                  margin-right: 2px;">
-                +</a> -->
                 <span style="float: right; color: #ac3768; margin-right: 8px">
                   {{ formatPrice(product.price) }}
                 </span>
@@ -64,41 +54,48 @@
         </div>
       </div>
 
-
-      <div class="col-2 col offset-10 px-1 bg-dark position-fixed" style="text-align: center; color: #fff; border-radius: 10%;" id="sticky-sidebar">
-        <h5 style="text-align: center; margin: revert;">
-        <div name="fade">
-          <p
-            class="cartQuantity"
-            style="
-              background: rgb(211, 131, 18);
-              width: 2rem;
-              margin: auto;
-              text-align: center;
-              border-radius: 50%;
-            "
-          >
-            {{ cartQuantity.quantity ? cartQuantity.quantity : cartQuantity }}
-          </p>
-        </div>
-        <div class="mb-2 mt-2" name="fade">
-         
+      <div
+        class="col-2 col offset-10 px-1 bg-dark position-fixed"
+        style="text-align: center; color: #fff; border-radius: 10%"
+        id="sticky-sidebar"
+      >
+        <h5 style="text-align: center; margin: revert">
+          <div name="fade">
+            <p
+              class="cartQuantity"
+              style="
+                background: rgb(211, 131, 18);
+                width: 2rem;
+                margin: auto;
+                text-align: center;
+                border-radius: 50%;
+              "
+            >
+              {{ cartQuantity.quantity ? cartQuantity.quantity : cartQuantity }}
+            </p>
+          </div>
+          <div class="mb-2 mt-2" name="fade">
             <span>{{ formatPrice(cartTotal) }} &nbsp</span>
 
             <span><i class="fa-solid fa-cart-shopping"></i></span>
+          </div>
 
-          
-        </div>
-
-        <div name="fade">
-          <router-link to="/checkout">
-          <button type="button" class="btn" 
-          style="background-image: linear-gradient(to left, #ac3768, #d38312); color: #fff; font-weight: 600;">
-          CHECKOUT</button>
-            <!-- <button class="btn btn-block"></button> -->
-          </router-link>
-        </div>
-      </h5>
+          <div name="fade">
+            <router-link to="/checkout">
+              <button
+                type="button"
+                class="btn"
+                style="
+                  background-image: linear-gradient(to left, #ac3768, #d38312);
+                  color: #fff;
+                  font-weight: 600;
+                "
+              >
+                CHECKOUT
+              </button>
+            </router-link>
+          </div>
+        </h5>
       </div>
     </div>
   </div>
@@ -115,11 +112,10 @@ import { useRouter } from "vue-router";
 import { formatPrice } from "../../utils/functions";
 
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.vue";
-import Cart from "./../Header/Cart.vue";
 import store1 from "./../../store/index.js";
 
 export default defineComponent({
-  components: { LoadingSpinner, Cart },
+  components: { LoadingSpinner},
   setup() {
     const store = useStore();
     const router = useRouter();
@@ -130,13 +126,10 @@ export default defineComponent({
       products: null,
     });
 
-    console.log(store1.getters);
-
     const placeholderImage = process.env.MIX_PLACEHOLDER_SMALL_IMAGE_URL;
 
     const fetchProducts = () => {
       localState.products = store.state.products;
-      // console.log(store.state.products);
       localState.loading = false;
     };
 

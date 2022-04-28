@@ -8,7 +8,11 @@
         >
       </div>
 
-      <table v-if="cartLength" class="table table-dark table-bordered" style="text-align: center">
+      <table
+        v-if="cartLength"
+        class="table table-dark table-bordered"
+        style="text-align: center"
+      >
         <thead>
           <tr>
             <th scope="col">Remove</th>
@@ -19,16 +23,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr  v-for="products in cartContent" :key="products.id">
+          <tr v-for="products in cartContent" :key="products.id">
             <th>
               <a tabindex="0" @click="removeProductFromCart(products)">
-             <span :class="{ removing: localState.removingCartItem }"><i class="fa-solid fa-xmark"></i></span>
-            </a>
+                <span :class="{ removing: localState.removingCartItem }"
+                  ><i class="fa-solid fa-xmark"></i
+                ></span>
+              </a>
             </th>
             <td>{{ products.name }}</td>
             <td>{{ formatPrice(products.price) }}</td>
             <td>{{ products.quantity }}</td>
-            <td v-if="cartLength">{{ formatPrice(products.price * products.quantity) }}</td>
+            <td v-if="cartLength">
+              {{ formatPrice(products.price * products.quantity) }}
+            </td>
             <!-- <td v-if="cartLength">{{ formatPrice(cartTotal) }}</td> -->
           </tr>
           <tr>
@@ -46,7 +54,7 @@
         </tbody>
       </table>
     </section>
-    <hr>
+    <hr />
     <h2 v-if="!cartLength" class="m-4 text-3xl text-center">
       Cart is currently empty
     </h2>
@@ -58,32 +66,36 @@
       <transition name="fade" class="text-center">
         <div v-show="customerDetails.firstName && checkoutFormIsValid">
           <div class="flex justify-center w-full align-center">
-            <span>Use the following card details for testing:
+            <span
+              >Use the following card details for testing:
               <br />4242424242424242 <br />
               CVC any 3 digits <br />
               Any future date <br />
               Any zip code
             </span>
           </div>
-          <h2 class="font-bold text-center">
-            Stripe payment
-          </h2>
+          <h2 class="font-bold text-center">Stripe payment</h2>
           <div class="flex justify-center w-full p-4 align-center">
             <br />
-            <div id="card-element" class="w-full h-16 mt-4 lg:w-5/12 xl:w-5/12" style="width: 50%; margin: auto;">
+            <div
+              id="card-element"
+              class="w-full h-16 mt-4 lg:w-5/12 xl:w-5/12"
+              style="width: 50%; margin: auto"
+            >
               Stripe
             </div>
           </div>
           <div class="mt-3 mb-3 text-center">
-            <button type="submit" class="btn btn-primary"             
+            <button
+              type="submit"
+              class="btn btn-primary"
               :class="{ disabledButton: paymentIsProcessing }"
               :disabled="paymentIsProcessing"
               @click="checkout(products)"
             >
               Checkout
             </button>
-            </div>
-          
+          </div>
         </div>
       </transition>
     </div>
@@ -169,8 +181,8 @@ export default defineComponent({
             localState.paymentIsProcessing = false;
             if (response.statusText === "Created") {
               fetch(`api/send-mail/${response.data.transaction_id}`, {
-                method: 'get'
-              }).catch(err => console.log(err));
+                method: "get",
+              }).catch((err) => console.log(err));
               store.dispatch("emptyCart");
               store.dispatch("deleteCustomer");
               store.commit("UPDATE_ORDER", response.data);
@@ -194,7 +206,6 @@ export default defineComponent({
       });
       localState.cardElement.mount("#card-element");
     });
-
 
     return {
       ...toRefs(localState),
