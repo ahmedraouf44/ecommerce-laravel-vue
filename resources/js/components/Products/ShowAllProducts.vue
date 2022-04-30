@@ -129,6 +129,7 @@ export default defineComponent({
     const placeholderImage = process.env.MIX_PLACEHOLDER_SMALL_IMAGE_URL;
 
     const fetchProducts = () => {
+      store.dispatch("getProductsFromApi");
       localState.products = store.state.products;
       localState.loading = false;
     };

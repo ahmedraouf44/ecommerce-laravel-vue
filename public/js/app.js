@@ -20242,6 +20242,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var placeholderImage = "changeme";
 
     var fetchProducts = function fetchProducts() {
+      store.dispatch("getProductsFromApi");
       localState.products = store.state.products;
       localState.loading = false;
     };
@@ -21461,7 +21462,6 @@ __webpack_require__.r(__webpack_exports__);
 var mutations = {
   FETCH_PRODUCTS_FROM_API: function FETCH_PRODUCTS_FROM_API(state, products) {
     Object.assign(state.products, products);
-    window.location.reload();
   },
   UPDATE_CART: function UPDATE_CART(state, cart) {
     var newState = state;
